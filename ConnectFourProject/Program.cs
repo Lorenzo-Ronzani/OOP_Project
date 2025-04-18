@@ -1,7 +1,32 @@
-﻿
-using System;
+﻿using System;
+using System.Data;
+using System.Numerics;
+
 namespace ConnectFourProject
 {
+
+    public class Board
+    {
+        private readonly char[,] cells;
+        private const int Row = 6;
+        private const int Column = 7;
+        private const char EmptyCell = '.';
+
+        public Board()
+        {
+            cells = new char[Rows, Columns];
+            Clear();
+        }
+
+        public void Clear()
+        {
+            for(int row = 0, row < Rows; row++) 
+                for(int col = 0; col < Columns; col++)
+                    cells[row, col] = EmptyCell;
+        }
+    }
+
+
     internal class Program
     {
         static void Main(string[] args)
