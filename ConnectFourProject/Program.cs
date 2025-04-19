@@ -46,6 +46,21 @@ namespace ConnectFourProject
             return cells[row, col];
         }
 
+        private int FindAvailableRow(int column)//Method to check if the column has space to drop symbols
+        {
+            if (column < 0 || column >= Columns)
+                return -1;
+
+            for (int row = Rows - 1; row >= 0; row--)
+            {
+                if (cells[row, column] == EmptyCell)
+                    return row;
+            }
+
+            return -1;
+        }
+
+
     }
 
 
