@@ -20,8 +20,8 @@ namespace ConnectFourProject
 
         public void Clear()
         {
-            for(int row = 0, row < Rows; row++) 
-                for(int col = 0; col < Columns; col++)
+            for (int row = 0; row < Rows; row++)
+                for (int col = 0; col < Columns; col++)
                     cells[row, col] = EmptyCell;
         }
 
@@ -75,7 +75,7 @@ namespace ConnectFourProject
         //Method to check if the board is full
         public bool IsFull()
         {
-            for(int col = 0; col < Columns; col++)
+            for (int col = 0; col < Columns; col++)
             {
                 if (cells[0, col] == EmptyCell)
                     return false;
@@ -98,7 +98,7 @@ namespace ConnectFourProject
 
         public abstract int ChooseColumn();
     }
-        
+
     public class HumanPlayer : Player
     {
         public HumanPlayer(char symbol, string name) : base(symbol, name) { }
@@ -107,7 +107,7 @@ namespace ConnectFourProject
         {
             int column;
             Console.WriteLine($"{Name}'s turn ({Symbol}): Choose a column (1-7): ");
-            while(!int.TryParse(Console.ReadLine(), out column) || column < 1 || column > 7)
+            while (!int.TryParse(Console.ReadLine(), out column) || column < 1 || column > 7)
             {
                 Console.WriteLine("Invalid input! Please choose a column between 1 and 7.");
             }
@@ -117,39 +117,57 @@ namespace ConnectFourProject
     }
 
 
-    internal class Program
+    public class GameController
     {
-        static void Main(string[] args)
+        private Board board;
+        private Player player1;
+        private Player player2;
+        private Player currentPlayer;
+
+        public GameController(Player p1, Player p2)
         {
-            Console.WriteLine("Welcome to Connect Four!");
-            Console.WriteLine("Please, select your symbol: ");
-            Console.WriteLine("Would you like to play with X or 0?");
+            player1 = p1;
+            player2 = p2;
+            currentPlayer = player1;  // Player1 starts
+            board = new Board();
+        }
 
-            string input = Console.ReadLine()?.ToUpper();
 
-            char player1Symbol;
-            char player2Symbol;
 
-            if(input == "X")
+
+        internal class Program
+        {
+            static void Main(string[] args)
             {
-                player1Symbol = 'X';
-                player2Symbol = '0';
-            } 
-            else if(input == "0")
-            {
-                player1Symbol = '0';
-                player2Symbol = 'X';
+                Console.WriteLine("Welcome to Connect Four!");
+                Console.WriteLine("Please, select your symbol: ");
+                Console.WriteLine("Would you like to play with X or 0?");
+
+                string input = Console.ReadLine()?.ToUpper();
+
+                char player1Symbol;
+                char player2Symbol;
+
+                if (input == "X")
+                {
+                    player1Symbol = 'X';
+                    player2Symbol = '0';
+                }
+                else if (input == "0")
+                {
+                    player1Symbol = '0';
+                    player2Symbol = 'X';
+                }
+                else
+                {
+                    Console.WriteLine("Invalid selection. Defaulting to X.");
+                    player1Symbol = 'X';
+                    player2Symbol = '0';
+                }
+
+                Console.WriteLine($"You choose: {player1Symbol}");
+                Console.WriteLine($"Your oponent will play as: {player2Symbol}");
+
             }
-            else
-            {
-                Console.WriteLine("Invalid selection. Defaulting to X.");
-                player1Symbol = 'X';
-                player2Symbol = '0';
-            }
-
-            Console.WriteLine($"You choose: {player1Symbol}");
-            Console.WriteLine($"Your oponent will play as: {player2Symbol}");
-            
         }
     }
-}
