@@ -22,7 +22,7 @@ namespace ConnectFourProject
         {
             for(int row = 0, row < Rows; row++) 
                 for(int col = 0; col < Columns; col++)
-                    cells[row, col] = EmptyCell;kkk
+                    cells[row, col] = EmptyCell;
         }
 
         public void Show()
@@ -60,7 +60,60 @@ namespace ConnectFourProject
             return -1;
         }
 
+        //Method to insert the symbols inside the board
+        public bool Drop(int column, char symbol)
+        {
+            int row = FindAvailableRow(column);
 
+            if (row == -1)
+                return false;
+
+            cells[row, column] = symbol;
+            return true;
+        }
+
+        //Method to check if the board is full
+        public bool IsFull()
+        {
+            for(int col = 0; col < Columns; col++)
+            {
+                if (cells[0, col] == EmptyCell)
+                    return false;
+            }
+            return true;
+        }
+
+    }
+
+    public abstract class Player
+    {
+        public char Symbol { get; }
+        public string Name { get; }
+
+        public Player(char symbol, string name)
+        {
+            Symbol = symbol;
+            Name = name;
+        }
+
+        public abstract int ChooseColumn();
+    }
+        
+    public class HumanPlayer : Player
+    {
+        public HumanPlayer(char symbol, string name) : base(symbol, name) { }
+
+        public override int ChooseColumn()
+        {
+            int column;
+            Console.WriteLine($"{Name}'s turn ({Symbol}): Choose a column (1-7): ");
+            while(!int.TryParse(Console.ReadLine(), out column) || column < 1 || column > 7)
+            {
+                Console.WriteLine("Invalid input! Please choose a column between 1 and 7.");
+            }
+            //Adjust for 0 (based index)
+            return column - 1;
+        }
     }
 
 
