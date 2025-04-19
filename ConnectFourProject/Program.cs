@@ -164,6 +164,22 @@ namespace ConnectFourProject
             }
         }
 
+        private bool CheckWin(char symbol)
+        {
+            for (int row = 0; row < 6; row++)
+                for (int col = 0; col < 7; col++)
+                {
+                    if (cellsInLine(row, col, 1, 0, symbol) ||
+                        cellsInLine(row, col, 0, 1, symbol) ||
+                        cellsInLine(row, col, 1, 1, symbol) ||
+                        cellsInLine(row, col, 1, -1, symbol))
+                    {
+                        return true;
+                    }
+                }
+            return false;
+        }
+
 
 
 
