@@ -132,6 +132,38 @@ namespace ConnectFourProject
             board = new Board();
         }
 
+        public void Start()
+        {
+            while(true)
+            {
+                board.Show();
+                int column = currentPlayer.ChooseColumn();
+
+                if(!board.Drop(column, currentPlayer.Symbol))
+                {
+                    Console.WriteLine("Column full! Choose another.");
+                    continue;
+                }
+
+                if(CheckWin(currentPlayer.Symbol))
+                {
+                    board.Show();
+                    Console.WriteLine($"{currentPlayer.Name} wins");
+                    break;
+                }
+
+                if(board.IsFull())
+                {
+                    board.Show();
+                    Console.WriteLine("It's a draw!");
+                    break;
+                }
+
+                //Switch players
+                currentPlayer = currentPlayer == player1 ? player2 : player1;
+            }
+        }
+
 
 
 
