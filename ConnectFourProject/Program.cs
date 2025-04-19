@@ -22,8 +22,30 @@ namespace ConnectFourProject
         {
             for(int row = 0, row < Rows; row++) 
                 for(int col = 0; col < Columns; col++)
-                    cells[row, col] = EmptyCell;
+                    cells[row, col] = EmptyCell;kkk
         }
+
+        public void Show()
+        {
+
+            for (int row = 0; row < Rows; row++)
+            {
+                Console.Write("|");
+                for (int col = 0; col < Columns; col++)
+                {
+                    Console.Write($" {cells[row, col]}");
+                }
+                Console.WriteLine(" |");
+            }
+            Console.Write("-----------------");
+            Console.WriteLine("\n  1 2 3 4 5 6 7");
+        }
+
+        public char GetCell(int row, int col)
+        {
+            return cells[row, col];
+        }
+
     }
 
 
