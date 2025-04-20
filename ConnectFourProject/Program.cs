@@ -134,25 +134,25 @@ namespace ConnectFourProject
 
         public void Start()
         {
-            while(true)
+            while (true)
             {
                 board.Show();
                 int column = currentPlayer.ChooseColumn();
 
-                if(!board.Drop(column, currentPlayer.Symbol))
+                if (!board.Drop(column, currentPlayer.Symbol))
                 {
                     Console.WriteLine("Column full! Choose another.");
                     continue;
                 }
 
-                if(CheckWin(currentPlayer.Symbol))
+                if (CheckWin(currentPlayer.Symbol))
                 {
                     board.Show();
                     Console.WriteLine($"{currentPlayer.Name} wins");
                     break;
                 }
 
-                if(board.IsFull())
+                if (board.IsFull())
                 {
                     board.Show();
                     Console.WriteLine("It's a draw!");
@@ -180,6 +180,21 @@ namespace ConnectFourProject
             return false;
         }
 
+        private bool cellsInLine(int row, int col, int dRow, int dCol, char symbol)
+        {
+            int count = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                int r = row + i * dRow;
+                int c = col + i * dCol;
+                if (r >= 0 && r < 6 && c >= 0 && c < 7 && board.GetCell(r, c) == symbol)
+                    count++;
+                else
+                    break;
+            }
+            return count == 4;
+        }
+    }
 
 
 
@@ -218,4 +233,4 @@ namespace ConnectFourProject
 
             }
         }
-    }
+}
