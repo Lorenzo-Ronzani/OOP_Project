@@ -8,8 +8,8 @@ namespace ConnectFourProject
     public class Board
     {
         private readonly char[,] cells;
-        private const int Row = 6;
-        private const int Column = 7;
+        private const int Rows = 6;
+        private const int Columns = 7;
         private const char EmptyCell = '.';
 
         public Board()
@@ -198,14 +198,17 @@ namespace ConnectFourProject
 
 
 
-        internal class Program
+    internal class Program
+    {
+        static void Main(string[] args)
         {
-            static void Main(string[] args)
+            Console.WriteLine("Welcome to Connect Four!");
+            bool playAgain;
+
+            do
             {
-                Console.WriteLine("Welcome to Connect Four!");
                 Console.WriteLine("Please, select your symbol: ");
                 Console.WriteLine("Would you like to play with X or 0?");
-
                 string input = Console.ReadLine()?.ToUpper();
 
                 char player1Symbol;
@@ -228,9 +231,24 @@ namespace ConnectFourProject
                     player2Symbol = '0';
                 }
 
-                Console.WriteLine($"You choose: {player1Symbol}");
-                Console.WriteLine($"Your oponent will play as: {player2Symbol}");
+                Console.WriteLine($"You chose: {player1Symbol}");
+                Console.WriteLine($"Your opponent will play as: {player2Symbol}");
+                Console.WriteLine();
 
-            }
+                Player player1 = new HumanPlayer(player1Symbol, "Player 1");
+                Player player2 = new HumanPlayer(player2Symbol, "Player 2");
+
+                GameController game = new GameController(player1, player2);
+                game.Start();
+
+                Console.WriteLine("\nDo you want to play again? (Y/N)");
+                string again = Console.ReadLine()?.ToUpper();
+                playAgain = (again == "Y");
+
+                Console.Clear();
+            } while (playAgain);
+
+            Console.WriteLine("Thanks for playing Connect Four! Goodbye.");
         }
+    }
 }
